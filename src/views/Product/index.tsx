@@ -1,12 +1,5 @@
+import { ProductType } from "@/types/ProductType";
 import styles from "./Product.module.scss";
-
-type ProductType = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    category: string;
-};
 
 export default function ProductView({products}: {products: ProductType[]}) {
     return (
@@ -42,8 +35,7 @@ export default function ProductView({products}: {products: ProductType[]}) {
                         <div className={styles.product__content__skeleton__category}/>
                         <div className={styles.product__content__skeleton__price}/>
                     </div>
-                )
-                }
+                )}
             </div>
         </div>
     );
