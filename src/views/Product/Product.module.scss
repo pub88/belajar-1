@@ -8,7 +8,10 @@
     &__content {
         display: flex;
         flex-wrap: wrap;
+<<<<<<< HEAD
         margin: 1rem;
+=======
+>>>>>>> master
         &__skeleton {
             animation: blinking 2s infinite;
             width: 300px;
@@ -42,19 +45,27 @@
         }
         &__item {
             width: 300px;
+<<<<<<< HEAD
             margin: 10px;
+=======
+            margin: 15px;
+>>>>>>> master
             padding: 25px;
             border: 1px solid #ccc;
             border-radius: 20px;
             &__image {
                 width: 250px;
                 height: 250px;
+<<<<<<< HEAD
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 img {
                     vertical-align: middle;
                     margin: auto;
+=======
+                img {
+>>>>>>> master
                     width: 100%;
                 }
             }
