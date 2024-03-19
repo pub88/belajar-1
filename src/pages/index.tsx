@@ -1,9 +1,11 @@
+import Head from "next/head";
+
 export default function Home() {
   return (
     <div>
-      <head>
+      <Head>
         <title>Home</title>
-      </head>
+      </Head>
       <div>hello Ahmad Sumbul</div>
     </div>
   )

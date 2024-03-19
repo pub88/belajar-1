@@ -1,7 +1,7 @@
-export default type ProductType = {
-    id: string;
-    name: string;
-    price: number;
-    image: string;
-    category: string;
-}
+export type ProductType = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+};

@@ -1,10 +1,10 @@
 import ProductView from "@/views/Product";
+import {ProductType} from '@/types/Product.type';
 
-export default function ProductPage(props: {products: ProductType[]}) {
-    const {products} = props;
+export default function ProductPage(props: { products: ProductType[] }) {
     return (
         <div>
-            <ProductView products={products} />
+            <ProductView products={props.products} />
         </div>
     );
 }

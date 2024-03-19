@@ -1,4 +1,4 @@
-import { ProductType } from "@/types/ProductType";
+import {ProductType} from '@/types/Product.type';
 import styles from "./Product.module.scss";
 
 export default function ProductView({products}: {products: ProductType[]}) {
