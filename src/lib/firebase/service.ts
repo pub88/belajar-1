@@ -41,11 +41,14 @@ export async function signUp(
     const snapshot = await getDocs(q);
     const data = snapshot.docs.map((doc)=>({
         id: doc.id,
-        ...doc.data(),
+        ...doc.id(),
     }));
-        
+    const apt = await snapshot.docs.map((doc)=>({
+        ...doc.data(),
+        id:doc.id
+    }));
+
     if(data.length > 0) {
-        console.log(data);
         return callback({
             success: false,
             message: "Email already exists"

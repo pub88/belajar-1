@@ -12,24 +12,24 @@ export default function RegisterView() {
         event.preventDefault();
 
         const form = event.currentTarget;
-        if (!form) {
-            return;
-        }
-
-        setIsLoading(true);
-
-        const data = { 
-            email: form.email.value,
-            fullname: form.fullname.value,
-            password: form.password.value
-        }
-
-        // const data = { 
-        //     email: event.target.email.value,
-        //     fullname: event.target.fullname.value,
-        //     password: event.target.password.value
+        // if (!form) {
+        //     return;
         // }
 
+        // setIsLoading(true);
+
+        // const data = { 
+        //     email: form.email.value,
+        //     fullname: form.fullname.value,
+        //     password: form.password.value
+        // }
+
+        const data = { 
+            email: event.target.email.value,
+            fullname: event.target.fullname.value,
+            password: event.target.password.value
+        }
+        
         const result = await fetch("/api/register", {
             method: "POST",
             headers: {
@@ -37,7 +37,8 @@ export default function RegisterView() {
             },
             body: JSON.stringify(data),
         })
-
+        console.log("result: " + JSON.stringify(result));
+        
         if (result.ok) {
             form.reset();
             setIsLoading(false);
