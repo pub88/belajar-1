@@ -6,11 +6,12 @@ import { useRouter } from 'next/router';
 export default function RegisterView() {
     const [isLoading, setIsLoading] = useState(false);
     const {push} = useRouter();
-    const [error, setError] = useState("");
+    const [error, setError] = useState(""); 
 
     const handleSubmit = async (event:any) => {
         event.preventDefault();
-
+        setError("");
+        setIsLoading(true);
         // const form = event.currentTarget;
         // if (!form) {
         //     return;
@@ -35,23 +36,26 @@ export default function RegisterView() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(data),
-        })
-        console.log("result: " + JSON.stringify(result));
+            body: data ? JSON.stringify(data) : null,
+        });
         
-        if (result.ok) {
+        if (result.status === 200) {
             event.target.reset();
             setIsLoading(false);
-            push('/auth/login');
+            push("/auth/login");
         } else {
+            console.log("aezakmi");
             setIsLoading(false);
-            setError(result.status === 400 ? "Email sudah terdaftar" : "Terjadi kesalahan");
+            setError(result.status === 400 ? "Email sudah terdaftar" : "");
         }
+        console.log(result);
+        console.log(JSON.stringify(data));
     }
 
     return (
         <div className={styles.register}>
             <h1 className={styles.register__title}>Register Page</h1>
+            {error && <p className={styles.register__error}>{error}</p>}
             <div className={styles.register__form}>
                 <form onSubmit={handleSubmit}>
                     <div className={styles.register__form__item}>
@@ -84,8 +88,8 @@ export default function RegisterView() {
                             className={styles.register__form__item__input}
                         />
                     </div>
-                    <button type='submit' className={styles.register__form__item__button}>
-                        Register
+                    <button type='submit' className={styles.register__form__item__button} disabled={isLoading}>
+                        {isLoading ? "Loading..." : "Register"}
                     </button>
                 </form>
             </div>

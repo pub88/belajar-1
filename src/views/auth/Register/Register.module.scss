@@ -9,6 +9,10 @@
         font-size: 32px;
         margin-bottom: 20px;
     }
+    &__error {
+        color: red;
+        margin: 10px auto;
+    }
     &__form {
         width: 30%;
         padding: 25px;
