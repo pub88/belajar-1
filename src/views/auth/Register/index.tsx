@@ -11,7 +11,7 @@ export default function RegisterView() {
     const handleSubmit = async (event:any) => {
         event.preventDefault();
 
-        const form = event.currentTarget;
+        // const form = event.currentTarget;
         // if (!form) {
         //     return;
         // }
@@ -40,7 +40,7 @@ export default function RegisterView() {
         console.log("result: " + JSON.stringify(result));
         
         if (result.ok) {
-            form.reset();
+            event.target.reset();
             setIsLoading(false);
             push('/auth/login');
         } else {

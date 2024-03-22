@@ -41,12 +41,12 @@ export async function signUp(
     const snapshot = await getDocs(q);
     const data = snapshot.docs.map((doc)=>({
         id: doc.id,
-        ...doc.id(),
-    }));
-    const apt = await snapshot.docs.map((doc)=>({
         ...doc.data(),
-        id:doc.id
     }));
+    // const apt = await snapshot.docs.map((doc)=>({
+    //     ...doc.data(),
+    //     id:doc.id
+    // }));
 
     if(data.length > 0) {
         return callback({
