@@ -41,15 +41,9 @@ export default function RegisterView() {
         
         if (result.status === 200) {
             event.target.reset();
+            console.log(result);
             setIsLoading(false);
             push("/auth/login");
-        } else {
-            console.log("aezakmi");
-            setIsLoading(false);
-            setError(result.status === 400 ? "Email sudah terdaftar" : "");
-        }
-        console.log(result);
-        console.log(JSON.stringify(data));
     }
 
     return (
