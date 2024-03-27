@@ -1,9 +1,9 @@
-import { signUp } from '@/lib/firebase/service';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { signUp } from '@/lib/firebase/service';
 
 type Data = {
-    status: boolean;
-    message: string;
+    status: boolean,
+    message: string,
 };
 
 export default async function handler(
@@ -21,7 +21,9 @@ export default async function handler(
                 }
             }
         );
+        // setIsLoading(false);
     } else {
         res.status(405).json({ status: false, message: 'Method Not Allowed' });
+        // setIsLoading(false);
     }
 }

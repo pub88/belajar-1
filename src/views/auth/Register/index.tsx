@@ -8,42 +8,45 @@ export default function RegisterView() {
     const {push} = useRouter();
     const [error, setError] = useState(""); 
 
-    const handleSubmit = async (event:any) => {
-        event.preventDefault();
+    // const state = {
+    //     inputName: "",
+    //     inputFullname: "",
+    //     inputPasswrd: "",
+    // }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         setError("");
         setIsLoading(true);
-        // const form = event.currentTarget;
-        // if (!form) {
-        //     return;
-        // }
-
-        // setIsLoading(true);
-
-        // const data = { 
-        //     email: form.email.value,
-        //     fullname: form.fullname.value,
-        //     password: form.password.value
-        // }
 
         const data = { 
-            email: event.target.email.value,
-            fullname: event.target.fullname.value,
-            password: event.target.password.value
+            email: e.target.eventemail.value,
+            fullname: e.target.fullname.value,
+            password: e.target.password.value
         }
-        
-        const result = await fetch("/api/register", {
+
+        const settings = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: data ? JSON.stringify(data) : null,
-        });
+            // body: state,
+            body: data,
+            // body: JSON.stringify(data),
+        };
         
-        if (result.status === 200) {
-            event.target.reset();
+        const result = await fetch("/api/register", settings);
+        
+        if (result.status !== 200) {
+            e.target.reset();
             console.log(result);
             setIsLoading(false);
             push("/auth/login");
+        } else {
+            setIsLoading(false);
+            console.log(result);
+            console.error('Error creating new user:', error);
+        }
     }
 
     return (
@@ -56,20 +59,24 @@ export default function RegisterView() {
                         <label htmlFor="email" className={styles.register__form__item__label}>Email</label>
                         <input
                             type="email"
-                            name="email"
+                            name="eventemail"
                             id="email"
                             placeholder='Email'
                             className={styles.register__form__item__input}
+                            // value={state.inputName}
+                            // onChange={(e) => this.setIsLoading({ inputName: e.target.value })}
                         />
                     </div>
                     <div className={styles.register__form__item}>
                         <label htmlFor="fullname" className={styles.register__form__item__label}>Fullname</label>
                         <input
                             type="fullname"
-                            name="fullname"
+                            name="efullname"
                             id="fullname"
                             placeholder='Fullname'
                             className={styles.register__form__item__input}
+                            // value={state.inputFullname}
+                            // onChange={(e) => this.setIsLoading({ inputFullname: e.target.value })}
                         />
                     </div>
                     <div className={styles.register__form__item}>
@@ -80,6 +87,8 @@ export default function RegisterView() {
                             id="password"
                             placeholder='Password'
                             className={styles.register__form__item__input}
+                            // value={state.inputPassword}
+                            // onChange={(e) => this.setIsLoading({ inputPassword: e.target.value })}
                         />
                     </div>
                     <button type='submit' className={styles.register__form__item__button} disabled={isLoading}>
@@ -88,7 +97,7 @@ export default function RegisterView() {
                 </form>
             </div>
             <p className={styles.register__link}>
-                Sudah punya akun? <Link href={'/auth/register'}>Login di sini</Link>
+                Sudah punya akun? <Link href={'/auth/login'}>Login di sini</Link>
             </p>
         </div>
     )

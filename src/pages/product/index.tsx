@@ -1,12 +1,12 @@
-import fetcher from "@/lib/swr/fetcher";
+import { fetcher } from "@/lib/swr/fetcher";
 import ProductView from "@/views/Product";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 export default function ProductPage() {
-    const [isLogin, setIsLogin] = useState(true);
-    const {push} = useRouter();
+    const [products, setProducts] = useState([]);
+    const { push } = useRouter();
 
     useEffect(() => {
         if (!isLogin) {
@@ -14,7 +14,7 @@ export default function ProductPage() {
         }
     }, []);
 
-    const { data, isLoading } = useSWR("/api/product", fetcher);
+    const { data, error, isLoading } = useSWR("/api/product", fetcher);
 
     return (
         <ProductView products={isLoading || !data ? [] : data.data}/>

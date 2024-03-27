@@ -17,4 +17,4 @@ export function mainMiddleware(req: NextRequest) {
 //     matcher: ['/product', '/product/'],
 // }
 
-export default withAuth(mainMiddleware, ['/profile']);
+export default withAuth(mainMiddleware, ['/profile', '/admin']);

@@ -1,6 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { signIn } from '@/lib/firebase/service';
+import { compare } from "bcryptjs";
 
 const authOptions: NextAuthOptions = {
     session: {
@@ -13,7 +15,7 @@ const authOptions: NextAuthOptions = {
             name: "Credentials",
             credentials: {
                 email: {
-                    label: "email",
+                    label: "Email",
                     type: "text",
                     placeholder: "email"
                 },
@@ -28,9 +30,14 @@ const authOptions: NextAuthOptions = {
                     email: string;
                     password: string;
                 };
-                const user = { id: 1, email: email, password: password };
+                
+                const user: any = await signIn({ email });
                 if(user) {
-                    return user;
+                    const passwordConfirm = await compare(password, user.password);
+                    if(passwordConfirm) {
+                        return user;
+                    }
+                    return null;
                 } else {
                     return null;
                 }
@@ -41,16 +48,29 @@ const authOptions: NextAuthOptions = {
         jwt({ token, account, profile, user }) {
             if (account?.provider === "credentials") {
                 token.email = user?.email;
+                token.fullname = user?.fullname;
+                token.role = user?.role;
             }
+            console.log(user.email);
             return token;
         },
         async session({ session, token }:any) {
             if ("email" in token) {
                 session.user.email = token.email;
             }
+            if ("fullname" in token) {
+                session.user.fullname = token.fullname;
+            }
+            if ("role" in token) {
+                session.user.role = token.role;
+            }
+            console.log(session, token);
             return session;
         },
     },
+    pages: {
+        signIn: "/auth/login",
+    }
 }
 
 export default NextAuth(authOptions);

@@ -19,3 +19,7 @@ a {
 .big {
   font-size: 3rem;
 }
+
+main {
+  padding: 2rem 3rem;
+}
